@@ -1,0 +1,26 @@
+<nav class="container navbar navbar-expand-lg navbar-light bg-white fixed-top py-3">
+    <a class="navbar-brand font-weight-bolder mr-3" routerLinkActive="active" routerLink="home">
+        <img src="../../assets/logo.png" style="width: auto; height: 40px;">
+    </a>
+    <button class="navbar-light navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault"
+        aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsDefault">
+        <ul class="navbar-nav mr-auto align-items-center" style="width: 100%;">
+            <form class="bd-search hidden-sm-down" style="width: 100%;">
+                <input type="text" class="form-control bg-graylight border-1 font-weight-bold" id="search-input"
+                    placeholder="Buscar..." autocomplete="off" style="width: 100%; border-radius: 50px; height: 50px;">
+                <div class="dropdown-menu bd-search-results" id="search-results">
+                </div>
+            </form>
+        </ul>
+        <ul class="navbar-nav ml-auto align-items-center">
+            <li class="nav-item">
+                <a class="nav-link active" routerLinkActive="active" routerLink="login">
+                    <button class="btn btn-primary btn-rounded" style="border-radius: 50px;">Login</button>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

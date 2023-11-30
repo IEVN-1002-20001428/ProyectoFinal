@@ -3,17 +3,17 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class AdminComponent {
+export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  loginAsAdmin() {
-    this.authService.login('admin');
-    this.router.navigate(['/inventario']);
+  loginAsClient() {
+    this.authService.login('cliente');
+    this.router.navigate(['/home']);
   }
 
 }

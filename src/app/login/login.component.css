@@ -1,0 +1,92 @@
+.login-wrap {
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 15px;
+    margin-top: 60px;
+}
+
+.text-animation-container {
+    /*background-color: var(--paka-green);*/
+}
+
+.text-animation-row {
+    height: 40px;
+}
+
+.marquee-w {
+    position: relative;
+    display: block;
+    width: 750px;
+    height: 140px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+
+.marquee {
+    margin: auto auto;
+    white-space: nowrap;
+    overflow: hidden;
+    min-width: 100%;
+    height: 100%;
+    color: #9d7cda;
+}
+
+.marquee span {
+    display: inline-block;
+    padding-left: 100%;
+    font-family: var(--font-bold);
+    color: var(--paka-orange);
+    text-align: center;
+    white-space: nowrap;
+    min-width: 100%;
+    word-spacing: 12px;
+    height: 100%;
+    font-size: 32px;
+    animation: marquee 55s linear infinite;
+}
+
+.marquee2 span {
+    animation-delay: 5s;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(-100%, 0);
+    }
+}
+
+
+
+/*****************BOTÓN******************/
+.btnp {
+    flex: 1 1 auto;
+    margin: 10px 0;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
+    box-shadow: 0 0 20px #eee;
+    border-radius: 50px;
+    border: none;
+}
+
+.btnp:hover {
+    background-position: right center;
+    color: #fff;
+}
+
+.btnp:focus {
+    border: none;
+    color: #fff;
+}
+
+.btn-primary-paka {
+    background-image: linear-gradient(to right, #9d7cda 0%, #c4afeb 51%, #9d7cda 100%);
+}

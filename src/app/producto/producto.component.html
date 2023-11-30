@@ -1,0 +1,77 @@
+<div class="container" style="padding: 100px;">
+
+    <section class="mt-4 mb-5">
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center">
+
+                <div class="mb-3" style="max-width: 70%;">
+                    <div class="row g-0">
+
+                        <div class="col-md-6 col-sm-12">
+                            <img src="{{imagen}}" class="d-block w-100" style="border-radius: 25px;" alt="...">
+                        </div>
+
+                        <div class="col-md-6 col-sm-12 p-5">
+                            <div class="card-body product-info d-flex flex-column gap-2">
+                                <h1 class="card-title">
+                                    {{titulo | uppercase}}
+                                </h1>
+                                <h3>
+                                    <i class='bx bx-user-circle'></i> {{autor}}
+                                </h3>
+                                <h3>
+                                    <i class='bx bx-bookmark'></i> {{categoria}}
+                                </h3>
+                                <h2 class="card-text" style="font-size: 20px;">
+                                    {{precio | currency}} MXN
+                                </h2>
+
+                                <br><br>
+
+                                <input type="number" value="1" min="1" class="form-control">
+
+                                <br><br>
+
+                                <a href=" #" style="text-decoration: none;">
+                                    <button type="button" id="guardar"
+                                        class="form-control btnp btn-primary-paka px-3 d-flex justify-content-center align-items-center">Añadir
+                                        a la cesta
+                                        <i class='bx bx-send' style="font-size: 26px; margin:0 5px;"></i> </button>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-3">
+                        <p>{{descripcion}}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="mt-4 mb-5">
+        <div class="row d-flex justify-content-center">
+            <div class="card-columns">
+                <a class="card-book" *ngFor="let producto of dataSource.slice(0,3)"
+                    href='producto.php?id={{producto.id}}' style='text-decoration:none;'>
+                    <div class='card card-pin card-img'>
+                        <img src='{{producto.imagen}}' alt='Card image'>
+                    </div>
+                    <div class='card-info' style='margin-bottom: 30px;'>
+                        <h2>{{producto.nombre | uppercase}}</h2>
+                        <h3><i class='bx bx-user'></i> {{producto.autor}}</h3>
+                        <span>{{producto.precio | currency}} MXN</span>
+                        <div class="card-btn">
+                            <button class="btn-main">Añadir</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+</div>
