@@ -1,0 +1,65 @@
+<div class="container">
+    <section class=" mt-4 mb-5">
+
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="table-responsive overflow-hidden">
+
+                    <h5>Productos en almacén</h5>
+
+                    <br><br>
+                    <table class='table table-striped text-center table-hover'>
+                        <thead class="table-primary">
+                            <tr>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+
+                                </th>
+                                <th>
+                                    Libro
+                                </th>
+                                <th>
+                                    Autor
+                                </th>
+                                <th>
+                                    Precio
+                                </th>
+                                <th>
+                                    EXISTENCIAS
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let producto of dataSource">
+                                <td>{{producto.id}}</td>
+                                <td>
+                                    <img src='{{producto.imagen}}'
+                                        style='width:70px; height:70px; object-fit:cover; border-radius:10px;'>
+                                </td>
+                                <td>{{producto.nombre | uppercase}}</td>
+                                <td>{{producto.autor}}</td>
+                                <td>{{producto.precio | currency}} MXN</td>
+                                <td>{{producto.existencias}} unidade(s)</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button class='btn btn-sm btn-primary'><i
+                                                class='bx bxs-edit-alt fs-4'></i></button>
+                                        <button class='btn btn-sm btn-danger'><i
+                                                class='bx bxs-trash-alt fs-4'></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
