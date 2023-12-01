@@ -9,6 +9,7 @@ import { EntregasComponent } from './entregas/entregas.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { ProductoComponent } from './producto/producto.component';
+import { ComprasComponent } from './compras/compras.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'clientes', component: ClientesComponent, canActivate: [AuthGuard], data: { allowedRoles: ['admin'] } },
   { path: 'entregas', component: EntregasComponent, canActivate: [AuthGuard], data: { allowedRoles: ['admin'] } },
   { path: 'login', component: LoginComponent },
-  { path: 'detalle-producto', component: ProductoComponent }
+  { path: 'detalle-producto/:id', component: ProductoComponent },
+  { path: 'mis-compras', component: ComprasComponent, canActivate: [AuthGuard], data: { allowedRoles: ['cliente'] } },
 ]
 
 @NgModule({

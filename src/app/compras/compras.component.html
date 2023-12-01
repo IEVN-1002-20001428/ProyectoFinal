@@ -1,0 +1,99 @@
+<div class="container" style="padding-top: 70px;">
+    <section class=" mt-4 mb-5">
+
+        <div class="container-fluid">
+            <div class="row">
+                <h3 class="d-flex justify-content-start align-items-center"> <i class="bx bx-cart-alt fs-3 mx-2"></i>
+                    Carrito de compras</h3>
+                <br><br>
+
+                <div class="col-12 col-xl-8">
+                    <div class="table-responsive overflow-hidden">
+                        <table class='table table-striped text-center table-hover'>
+                            <thead class="table-light">
+                                <tr>
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+
+                                    </th>
+                                    <th>
+                                        Producto
+                                    </th>
+                                    <th>
+                                        Cantidad
+                                    </th>
+                                    <th>
+                                        Precio
+                                    </th>
+                                    <th>
+                                        Total
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of productos">
+                                    <td>{{producto.id}}</td>
+                                    <td>
+                                        <img src='{{producto.imagen}}'
+                                            style='width:70px; height:70px; object-fit:cover; border-radius:10px;'>
+                                    </td>
+                                    <td>{{producto.nombre}}</td>
+                                    <td>{{producto.cantidad}}</td>
+                                    <td>{{producto.precio | currency}}</td>
+                                    <td>{{producto.total | currency}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot class="table-success">
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="font-weight: bold;">TOTAL</td>
+                                    <td style="font-weight: bold;">{{total | currency}} MXN</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-12 col-xl-4">
+                    <div class="card shadow" style="border: 0; border-radius: 12px; background-color: #e2d0fa;">
+                        <div class="card-body">
+                            <h4 class="card-title">Proceso de pago</h4>
+                            <div class="form-group">
+                                <label for="numero_tarjeta">Número de tarjeta</label>
+                                <input type="text" class="form-control" id="numero_tarjeta"
+                                    placeholder="0000 0000 0000 0000">
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-12 col-xl-6">
+                                    <div class="form-group">
+                                        <label for="fecha">Fecha</label>
+                                        <input type="text" class="form-control" id="fecha" placeholder="DD/MM">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-6">
+                                    <div class="form-group">
+                                        <label for="cvv">CVV</label>
+                                        <input type="text" class="form-control" id="cvv" placeholder="123">
+                                    </div>
+                                </div>
+                            </div>
+                            <br><br>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <button class="btn btn-success">Finalizar compra</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+</div>

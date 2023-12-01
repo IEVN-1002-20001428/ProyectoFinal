@@ -14,6 +14,8 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { EntregasComponent } from './entregas/entregas.component';
 import { LoginComponent } from './login/login.component';
 import { ProductoComponent } from './producto/producto.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ComprasComponent } from './compras/compras.component';
 
 @NgModule({
   declarations: [
@@ -28,11 +30,14 @@ import { ProductoComponent } from './producto/producto.component';
     ClientesComponent,
     EntregasComponent,
     LoginComponent,
-    ProductoComponent
+    ProductoComponent,
+    ComprasComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

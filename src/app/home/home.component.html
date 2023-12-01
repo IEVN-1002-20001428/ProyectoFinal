@@ -45,8 +45,8 @@
 	<div class="container-fluid">
 		<div class="row d-flex justify-content-center">
 			<div class="card-columns">
-				<a class="card-book" *ngFor="let producto of dataSource" href='producto.php?id={{producto.id}}'
-					style='text-decoration:none;'>
+				<a class="card-book" *ngFor="let producto of dataSource" routerLinkActive="active"
+					[routerLink]="['/detalle-producto', producto.id]" style='text-decoration:none;'>
 					<div class='card card-pin card-img'>
 						<img src='{{producto.imagen}}' alt='Card image'>
 					</div>

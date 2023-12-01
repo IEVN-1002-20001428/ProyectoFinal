@@ -2,9 +2,9 @@
 
     <section class="mt-4 mb-5">
         <div class="container-fluid">
-            <div class="row d-flex justify-content-center">
+            <div class="d-flex justify-content-center">
 
-                <div class="mb-3" style="max-width: 70%;">
+                <div class="mb-3 col-12 col-xl-8">
                     <div class="row g-0">
 
                         <div class="col-md-6 col-sm-12">
@@ -28,12 +28,15 @@
 
                                 <br><br>
 
-                                <input type="number" value="1" min="1" class="form-control">
+                                <h3>
+                                    En stock {{existencias}}
+                                </h3>
+                                <input type="number" value="1" min="1" class="form-control" [(ngModel)]="cantidad">
 
                                 <br><br>
 
                                 <a href=" #" style="text-decoration: none;">
-                                    <button type="button" id="guardar"
+                                    <button type="button" (click)="agregarCarrito($event)"
                                         class="form-control btnp btn-primary-paka px-3 d-flex justify-content-center align-items-center">Añadir
                                         a la cesta
                                         <i class='bx bx-send' style="font-size: 26px; margin:0 5px;"></i> </button>
