@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from '../interfaces/cliente';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-clientes',
@@ -7,33 +8,27 @@ import { Cliente } from '../interfaces/cliente';
   styleUrls: ['./clientes.component.css']
 })
 export class ClientesComponent implements OnInit {
-  dataSource: any = [];
 
-  clientes: Cliente[] = [
-    {
-      "id": 1,
-      "nombre": "Alonso",
-      "apaterno": "Pérez",
-      "amaterno": "Oliva",
-      "correo": "alonso@gmail.com"
-    },
-    {
-      "id": 2,
-      "nombre": "María",
-      "apaterno": "Sánchez",
-      "amaterno": "Méndez",
-      "correo": "maria@gmail.com"
-    },
-    {
-      "id": 3,
-      "nombre": "Dwayne",
-      "apaterno": "Jhonson",
-      "amaterno": "Roca",
-      "correo": "laroca@gmail.com"
-    },
-  ]
+  constructor(private http: HttpClient) { }
+
+  dataSource: any = [];
+  clientes: Cliente[] = [];
+
+  obtenerClientes() {
+    const url = 'http://localhost:5000/clientes';
+
+    this.http.get<any[]>(url)
+      .subscribe(
+        (data) => {
+          this.dataSource.push(data);
+        },
+        (error) => {
+          console.error('Error al obtener libros:', error);
+        }
+      );
+  }
 
   ngOnInit(): void {
-    this.dataSource = this.clientes
+    this.obtenerClientes();
   }
 }

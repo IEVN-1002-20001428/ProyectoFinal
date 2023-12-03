@@ -1,4 +1,12 @@
-<div class="container">
+<div class="container" style="padding-top: 80px;">
+
+    <section class="profile mt-5">
+        <div class="container mb-2 profile-info">
+            <h3 class="font-weight-bold title">{{nombre}} {{apaterno}} {{amaterno}}</h3>
+            <h4>{{correo}}</h4>
+        </div>
+    </section>
+
     <section class=" mt-4 mb-5">
 
         <div class="container-fluid">
@@ -6,11 +14,11 @@
 
                 <div class="table-responsive overflow-hidden">
 
-                    <h5>Entregas</h5>
+                    <h5>Mis compras</h5>
 
                     <br><br>
                     <table class='table table-striped text-center table-hover'>
-                        <thead class="table-success">
+                        <thead class="table-primary">
                             <tr>
                                 <th>
                                     ID
@@ -19,10 +27,13 @@
                                     Fecha
                                 </th>
                                 <th>
-                                    Cliente
+                                    Libro
                                 </th>
                                 <th>
-                                    Producto
+                                    Cantidad
+                                </th>
+                                <th>
+                                    Precio
                                 </th>
                                 <th>
                                     Total
@@ -30,12 +41,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let entrega of dataSource">
-                                <td>{{entrega.id_venta}}</td>
-                                <td>{{entrega.fecha_venta}}</td>
-                                <td>{{entrega.cliente}}</td>
-                                <td>{{entrega.productos | uppercase}}</td>
-                                <td>{{entrega.total | currency}}</td>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>

@@ -12,6 +12,7 @@
                         <table class='table table-striped text-center table-hover'>
                             <thead class="table-light">
                                 <tr>
+                                    <th></th>
                                     <th>
                                         ID
                                     </th>
@@ -34,6 +35,13 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let producto of productos">
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <button class='btn btn-sm btn-danger' (click)="eliminarItem(producto.id)"><i
+                                                    class='bx bxs-trash-alt'></i>
+                                            </button>
+                                        </div>
+                                    </td>
                                     <td>{{producto.id}}</td>
                                     <td>
                                         <img src='{{producto.imagen}}'
@@ -47,6 +55,7 @@
                             </tbody>
                             <tfoot class="table-success">
                                 <tr>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -66,26 +75,28 @@
                             <div class="form-group">
                                 <label for="numero_tarjeta">Número de tarjeta</label>
                                 <input type="text" class="form-control" id="numero_tarjeta"
-                                    placeholder="0000 0000 0000 0000">
+                                    placeholder="0000 0000 0000 0000" [(ngModel)]="numero_tarjeta">
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-12 col-xl-6">
                                     <div class="form-group">
                                         <label for="fecha">Fecha</label>
-                                        <input type="text" class="form-control" id="fecha" placeholder="DD/MM">
+                                        <input type="text" class="form-control" id="fecha" placeholder="DD/MM"
+                                            [(ngModel)]="fecha">
                                     </div>
                                 </div>
                                 <div class="col-12 col-xl-6">
                                     <div class="form-group">
                                         <label for="cvv">CVV</label>
-                                        <input type="text" class="form-control" id="cvv" placeholder="123">
+                                        <input type="text" class="form-control" id="cvv" placeholder="123"
+                                            [(ngModel)]="cvv">
                                     </div>
                                 </div>
                             </div>
                             <br><br>
                             <div class="d-flex justify-content-center align-items-center">
-                                <button class="btn btn-success">Finalizar compra</button>
+                                <button class="btn btn-success" (click)="finalizarCompra()">Finalizar compra</button>
                             </div>
                         </div>
 

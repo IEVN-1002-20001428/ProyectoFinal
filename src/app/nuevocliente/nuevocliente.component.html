@@ -15,25 +15,40 @@
                     <div class="icon d-flex align-items-center justify-content-center">
                         <img src="/assets/logo.png" class="w-100" alt="Logo">
                     </div>
-                    <h4 class="text-center mb-4">HOLA DE NUEVO 🖐</h4>
+                    <h4 class="text-center mb-4">BIENVENIDO 🖐</h4>
                     <form action="#" class="login-form">
                         <div class="form-group mb-3">
                             <input type="text" id="usuario" class="form-control rounded-left" placeholder="Usuario"
                                 name="usuario" [(ngModel)]="usuario">
                         </div>
+                        <div class="form-group mb-3">
+                            <input type="text" id="nombre" class="form-control rounded-left" placeholder="Nombre"
+                                name="nombre" [(ngModel)]="nombre">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="text" id="apaterno" class="form-control rounded-left" name="apaterno"
+                                placeholder="Apellido paterno" [(ngModel)]="apaterno">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="text" id="amaterno" class="form-control rounded-left" name="amaterno"
+                                placeholder="Apellido materno" [(ngModel)]="amaterno">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="text" id="correo" class="form-control rounded-left" name="correo"
+                                placeholder="Correo electrónico" [(ngModel)]="correo">
+                        </div>
                         <div class="form-group mb-3 d-flex">
                             <input type="password" id="password" class="form-control rounded-left" name="password"
-                                [(ngModel)]="password" placeholder="Contraseña">
+                                placeholder="Contraseña (8 dígitos)" [(ngModel)]="password">
                         </div>
                         <div class="form-group">
                             <button type="button" id="guardar" class="form-control btnp btn-primary-paka px-3"
-                                (click)="loginAsClient()">Vamos!</button>
+                                (click)="registrarCliente()">Crear cuenta</button>
                         </div>
 
                         <div class="form-group d-md-flex">
                             <div class="w-100 text-center">
-                                <p>¿Aún no tienes una cuenta? <a routerLinkActive="active" routerLink="/registrar">Crear
-                                        una</a> </p>
+                                <p>Ya tengo una cuenta <a routerLinkActive="active" routerLink="/login">Entrar</a> </p>
                             </div>
                         </div>
                     </form>

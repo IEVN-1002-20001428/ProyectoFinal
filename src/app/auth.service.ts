@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   private loggedIn = false;
   private userType: string = 'default';
@@ -20,6 +21,7 @@ export class AuthService {
     this.loggedIn = false;
     this.userType = '';
     localStorage.removeItem('userType');
+    localStorage.removeItem('Productos');
   }
 
   isLoggedIn() {

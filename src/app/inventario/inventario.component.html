@@ -38,7 +38,7 @@
                             <tr *ngFor="let producto of dataSource">
                                 <td>{{producto.id}}</td>
                                 <td>
-                                    <img src='{{producto.imagen}}'
+                                    <img src='../../assets/libros/{{producto.imagen}}'
                                         style='width:70px; height:70px; object-fit:cover; border-radius:10px;'>
                                 </td>
                                 <td>{{producto.nombre | uppercase}}</td>

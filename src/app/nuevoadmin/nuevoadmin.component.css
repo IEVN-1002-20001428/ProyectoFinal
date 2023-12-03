@@ -1,0 +1,28 @@
+/*****************BOTÓN******************/
+.btnp {
+    flex: 1 1 auto;
+    margin: 10px 0;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
+    box-shadow: 0 0 20px #eee;
+    border-radius: 50px;
+    border: none;
+}
+
+.btnp:hover {
+    background-position: right center;
+    color: #fff;
+}
+
+.btnp:focus {
+    border: none;
+    color: #fff;
+}
+
+.btn-primary-paka {
+    background-image: linear-gradient(to right, #9d7cda 0%, #c4afeb 51%, #9d7cda 100%);
+}

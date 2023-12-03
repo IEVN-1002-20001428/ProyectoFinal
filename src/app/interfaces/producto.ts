@@ -1,8 +1,9 @@
 export interface Producto {
-    id: number;
+    id_libro: number;
     nombre: string;
     descripcion: string;
     autor: string;
+    editorial: string;
     id_categoria: number;
     precio: number;
     imagen: string;

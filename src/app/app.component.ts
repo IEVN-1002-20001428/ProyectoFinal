@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
   }
 
   private shouldHideNavbar(url: string): boolean {
-    return url.includes('admin') || url.includes('login');
+    return url.includes('admin') || url.includes('login') || url.includes('registrar');
   }
 
 }

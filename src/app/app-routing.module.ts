@@ -10,6 +10,10 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { ProductoComponent } from './producto/producto.component';
 import { ComprasComponent } from './compras/compras.component';
+import { NuevoclienteComponent } from './nuevocliente/nuevocliente.component';
+import { NuevoadminComponent } from './nuevoadmin/nuevoadmin.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,10 +22,14 @@ const routes: Routes = [
   { path: 'nuevoProducto', component: NuevoproductoComponent, canActivate: [AuthGuard], data: { allowedRoles: ['admin'] } },
   { path: 'inventario', component: InventarioComponent, canActivate: [AuthGuard], data: { allowedRoles: ['admin'] } },
   { path: 'clientes', component: ClientesComponent, canActivate: [AuthGuard], data: { allowedRoles: ['admin'] } },
+  { path: 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard], data: { allowedRoles: ['admin'] } },
   { path: 'entregas', component: EntregasComponent, canActivate: [AuthGuard], data: { allowedRoles: ['admin'] } },
+  { path: 'nuevo-usuario', component: NuevoadminComponent, canActivate: [AuthGuard], data: { allowedRoles: ['admin'] } },
   { path: 'login', component: LoginComponent },
   { path: 'detalle-producto/:id', component: ProductoComponent },
   { path: 'mis-compras', component: ComprasComponent, canActivate: [AuthGuard], data: { allowedRoles: ['cliente'] } },
+  { path: 'registrar', component: NuevoclienteComponent },
+  { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard], data: { allowedRoles: ['cliente'] } },
 ]
 
 @NgModule({

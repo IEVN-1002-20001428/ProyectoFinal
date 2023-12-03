@@ -16,6 +16,11 @@ import { LoginComponent } from './login/login.component';
 import { ProductoComponent } from './producto/producto.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComprasComponent } from './compras/compras.component';
+import { NuevoclienteComponent } from './nuevocliente/nuevocliente.component';
+import { NuevoadminComponent } from './nuevoadmin/nuevoadmin.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { HttpClientModule } from '@angular/common/http';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 @NgModule({
   declarations: [
@@ -31,13 +36,18 @@ import { ComprasComponent } from './compras/compras.component';
     EntregasComponent,
     LoginComponent,
     ProductoComponent,
-    ComprasComponent
+    ComprasComponent,
+    NuevoclienteComponent,
+    NuevoadminComponent,
+    PerfilComponent,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

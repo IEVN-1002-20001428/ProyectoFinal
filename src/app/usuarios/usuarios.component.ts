@@ -2,20 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-entregas',
-  templateUrl: './entregas.component.html',
-  styleUrls: ['./entregas.component.css']
+  selector: 'app-usuarios',
+  templateUrl: './usuarios.component.html',
+  styleUrls: ['./usuarios.component.css']
 })
-export class EntregasComponent implements OnInit {
+export class UsuariosComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
   dataSource: any = [];
 
-  entregas = [];
-
-  obtenerVentas() {
-    const url = 'http://localhost:5000/ventas';
+  obtenerUsuarios() {
+    const url = 'http://localhost:5000/usuarios';
 
     this.http.get<any[]>(url)
       .subscribe(
@@ -23,13 +21,13 @@ export class EntregasComponent implements OnInit {
           this.dataSource.push(data);
         },
         (error) => {
-          console.error('Error al obtener libros:', error);
+          console.error('Error al obtener los usuarios:', error);
         }
       );
   }
 
   ngOnInit(): void {
-    this.obtenerVentas();
+    this.obtenerUsuarios();
   }
 
 }
