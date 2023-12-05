@@ -22,12 +22,20 @@
                                 <th>
                                     Correo
                                 </th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let usuario of dataSource">
                                 <td>{{usuario.nombre}}</td>
                                 <td>{{usuario.correo}}</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button class='btn btn-sm btn-primary' routerLinkActive="active"
+                                            [routerLink]="['/editar-usuario', usuario.nombre]"><i
+                                                class='bx bxs-edit-alt'></i></button>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

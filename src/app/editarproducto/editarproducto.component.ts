@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Categoria } from '../interfaces/categoria';
 import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-nuevoproducto',
-  templateUrl: './nuevoproducto.component.html',
-  styleUrls: ['./nuevoproducto.component.css']
+  selector: 'app-editarproducto',
+  templateUrl: './editarproducto.component.html',
+  styleUrls: ['./editarproducto.component.css']
 })
-export class NuevoproductoComponent implements OnInit {
+export class EditarproductoComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
+  id_producto?: number;
   nombre = '';
   descripcion = '';
   autor = '';
@@ -20,26 +21,39 @@ export class NuevoproductoComponent implements OnInit {
   precio = 0;
   existencias = 0;
   imagenBase64?: string;
+  imagen?: string;
+  imagenSrc = '';
 
-  dataSource: any = [];
+  obtenerProducto() {
 
-  categorias: Categoria[] = [
-    {
-      "id": 1,
-      "nombre": "Novelas"
-    },
-    {
-      "id": 2,
-      "nombre": "Terror"
-    },
-    {
-      "id": 3,
-      "nombre": "Ciencia Ficción"
-    },
-  ]
+    const url = `http://localhost:5000/libros/${this.id_producto}`;
+
+    this.http.get<any>(url)
+      .subscribe(
+        (data) => {
+          this.nombre = data.libro.nombre;
+          this.descripcion = data.libro.descripcion;
+          this.autor = data.libro.autor;
+          this.editorial = data.libro.editorial;
+          this.categoria = data.libro.id_categoria;
+          this.precio = data.libro.precio;
+          this.existencias = data.libro.existencias;
+          this.imagen = data.libro.imagen;
+
+          this.obtenerImagen();
+        },
+        (error) => {
+          console.error('Error en la petición:', error);
+        }
+      );
+  }
 
   ngOnInit(): void {
-    this.dataSource = this.categorias
+    const idString = this.route.snapshot.paramMap.get('id');
+    if (idString) {
+      this.id_producto = parseInt(idString, 10);
+    }
+    this.obtenerProducto();
   }
 
   validateForm(): boolean {
@@ -94,12 +108,11 @@ export class NuevoproductoComponent implements OnInit {
     }
   }
 
-
-  registrarProducto() {
+  actualizarProducto() {
 
     if (this.validateForm()) {
 
-      const url = 'http://localhost:5000/libros';
+      const url = `http://localhost:5000/libros/${this.id_producto}`;
       let parametros = {
         nombre: this.nombre,
         descripcion: this.descripcion,
@@ -108,18 +121,18 @@ export class NuevoproductoComponent implements OnInit {
         editorial: this.editorial,
         existencias: this.existencias,
         categoria: this.categoria,
-        imagen: this.imagenBase64
+        imagen: this.imagenBase64 ? this.imagenBase64 : ''
       }
 
-      this.http.post<any>(url, parametros)
+      this.http.put<any>(url, parametros)
         .subscribe(
           (data) => {
             if (data.exito) {
-              Swal.fire('', 'El libro se registró correctamente', 'success').then(function () {
+              Swal.fire('', 'Los cambios se guardaron correctamente', 'success').then(function () {
                 location.reload();
               });
             } else {
-              Swal.fire('Error', 'El libro no pudo ser registrado, puede que ya exista o los datos sean incorrectos', 'error');
+              Swal.fire('Error', 'El libro no pudo ser modificado, puede que ya exista o los datos sean incorrectos', 'error');
             }
           },
           (error) => {
@@ -128,6 +141,27 @@ export class NuevoproductoComponent implements OnInit {
         );
     }
 
+  }
+
+  eliminarProducto() {
+
+  }
+
+  obtenerImagen() {
+    const url = `http://localhost:5000/covers/${this.imagen}`;
+
+    this.http.get(url, { observe: 'response', responseType: 'blob' as 'json' }).subscribe(
+      response => {
+        if (response.status === 200) {
+          this.imagenSrc = url;
+        } else {
+          console.error('Error al obtener la imagen. Status:', response.status);
+        }
+      },
+      error => {
+        console.error('Error al obtener la imagen', error);
+      }
+    );
   }
 
 }

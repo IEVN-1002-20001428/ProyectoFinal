@@ -20,7 +20,7 @@ export class EntregasComponent implements OnInit {
     this.http.get<any[]>(url)
       .subscribe(
         (data) => {
-          this.dataSource.push(data);
+          this.dataSource = data;
         },
         (error) => {
           console.error('Error al obtener libros:', error);

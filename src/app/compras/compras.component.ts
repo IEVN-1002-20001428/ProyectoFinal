@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CarritoItem } from '../interfaces/producto';
 import Swal from 'sweetalert2';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-compras',
@@ -9,15 +11,37 @@ import Swal from 'sweetalert2';
 })
 export class ComprasComponent implements OnInit {
 
+  constructor(private router: Router, private http: HttpClient) { }
+
   productos: CarritoItem[] = [];
   total = 0;
   numero_tarjeta = '';
   fecha = '';
   cvv = '';
+  id_cliente = 0;
+  usuario = '';
 
   ngOnInit(): void {
     this.obtener();
     this.obtenerTotal();
+    this.obtenerCliente();
+  }
+
+  obtenerCliente() {
+
+    this.usuario = localStorage.getItem('user') || '';
+
+    const url = `http://localhost:5000/clientes/${this.usuario}`;
+
+    this.http.get<any>(url)
+      .subscribe(
+        (data) => {
+          this.id_cliente = data.cliente.id_cliente;
+        },
+        (error) => {
+          console.error('Error en la petición:', error);
+        }
+      );
   }
 
   obtener(): any[] {
@@ -89,8 +113,62 @@ export class ComprasComponent implements OnInit {
   finalizarCompra() {
 
     if (this.validateForm()) {
-      Swal.fire('', 'La compra fue registrada existosamente', 'success');
+
+      const url = 'http://localhost:5000/ventas';
+      let parametros = {
+        id_cliente: this.id_cliente,
+        total: this.total,
+        estatus: 1
+      }
+
+      this.http.post<any>(url, parametros)
+        .subscribe(
+          (data) => {
+            if (data.exito) {
+
+              var id_venta = data.id_venta;
+              this.guardarDetalle(id_venta);
+
+            } else {
+              Swal.fire('Error', 'Hubo un problema al finalizar la venta', 'error');
+            }
+          },
+          (error) => {
+            console.error('Error de petición:', error);
+          }
+        );
     }
+
+  }
+
+  guardarDetalle(id_venta: number) {
+
+    const url = 'http://localhost:5000/venta_detalle';
+
+    const productosEnLocalStorage = localStorage.getItem('Productos');
+    const productos: any[] = productosEnLocalStorage ? JSON.parse(productosEnLocalStorage) : [];
+
+    let parametros = {
+      id_venta: id_venta,
+      productos: productos
+    }
+
+    this.http.post<any>(url, parametros)
+      .subscribe(
+        (data) => {
+          if (data.exito) {
+            Swal.fire('', 'La compra se registró exitosamente', 'success').then(function () {
+              localStorage.removeItem('Productos');
+            });
+            this.router.navigate(['/perfil']);
+          } else {
+            Swal.fire('Error', 'Hubo un problema al registrar los libros', 'error');
+          }
+        },
+        (error) => {
+          console.error('Error al obtener libros:', error);
+        }
+      );
 
   }
 

@@ -42,7 +42,7 @@ export class AdminComponent {
         .subscribe(
           (data) => {
             if (data.exito) {
-              this.authService.login('admin');
+              this.authService.login('admin', this.usuario);
               this.router.navigate(['/inventario']);
             } else {
               Swal.fire('Error', 'El usuario no pudo ser encontrado, verifique sus datos', 'error');

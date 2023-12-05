@@ -1,12 +1,15 @@
-<div class="container" style="padding-top: 100px;">
+<div class="container" style="padding-top: 80px;">
+
     <section class="profile mt-5">
-        <div class="container mb-4 profile-info">
-            <h1 class="font-weight-bold title">Crear nuevo producto</h1>
+        <div class="container mb-2 profile-info">
+            <h3 class="font-weight-bold title">{{nombre}}</h3>
         </div>
     </section>
 
-    <section>
-        <div class="container">
+    <section class=" mt-4 mb-5">
+
+        <div class="container-fluid">
+
             <div class="row d-flex justify-content-center">
                 <div class="col-sm-12 col-lg-8">
                     <form action="" enctype="multipart/form-data">
@@ -74,7 +77,11 @@
 
                         <br>
 
-                        <div class="row">
+                        <div class="row d-flex gap-4">
+                            <div class="w-auto">
+                                <img [src]="'' + imagenSrc"
+                                    style='width:auto; height:240px; object-fit:cover; border-radius:20px;'>
+                            </div>
                             <div class="col-sm-3 imgUp">
                                 <input type="file" class="uploadFile img" value="Foto subida" name="archivo[]"
                                     id="imagena" accept=".jpg" (change)="onFileSelected($event)">
@@ -83,14 +90,16 @@
 
                         <br><br>
 
-                        <button type="button" (click)="registrarProducto()" class="btn btn-success">Guardar
-                            Producto</button>
+                        <div class="d-flex justify-content-center align-items-center gap-4">
+                            <button type="button" class="btn btn-danger" (click)="eliminarProducto()">Eliminar
+                                libro</button>
+                            <button type="button" (click)="actualizarProducto()" class="btn btn-success">Guardar
+                                Cambios</button>
+                        </div>
                     </form>
                 </div>
             </div>
-
-            <br>
-            <br>
         </div>
+
     </section>
 </div>

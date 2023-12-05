@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import Swal from 'sweetalert2';
+import { GetClient } from '../interfaces/usuario';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nuevocliente',
@@ -8,11 +11,12 @@ import Swal from 'sweetalert2';
 })
 export class NuevoclienteComponent {
 
+  constructor(private router: Router, private http: HttpClient) { }
+
   usuario = '';
   nombre = '';
-  apaterno = '';
-  amaterno = '';
   correo = '';
+  direccion = '';
   password = '';
 
   validateForm(): boolean {
@@ -28,13 +32,8 @@ export class NuevoclienteComponent {
       return false;
     }
 
-    if (this.apaterno.length < 1) {
-      Swal.fire('Error', 'Favor de completar el campo de apellido paterno', 'error');
-      return false;
-    }
-
-    if (this.amaterno.length < 1) {
-      Swal.fire('Error', 'Favor de completar el campo de apellido materno', 'error');
+    if (this.direccion.length < 1) {
+      Swal.fire('Error', 'Favor de completar el campo de direccion', 'error');
       return false;
     }
 
@@ -54,7 +53,30 @@ export class NuevoclienteComponent {
   registrarCliente() {
 
     if (this.validateForm()) {
-      Swal.fire('', 'El usuario se registró correctamente', 'success');
+      const url = 'http://localhost:5000/clientes';
+      let parametros = {
+        usuario: this.usuario,
+        nombre: this.nombre,
+        contrasenia: this.password,
+        correo: this.correo,
+        direccion: this.direccion
+      }
+
+      this.http.post<GetClient>(url, parametros)
+        .subscribe(
+          (data) => {
+            if (data.exito) {
+              Swal.fire('', 'El usuario se registró correctamente', 'success').then(function () {
+              });
+              this.router.navigate(['/login']);
+            } else {
+              Swal.fire('Error', 'El usuario no pudo ser registrado, puede que ya exista o los datos sean incorrectos', 'error');
+            }
+          },
+          (error) => {
+            console.error('Error de petición:', error);
+          }
+        );
     }
 
   }

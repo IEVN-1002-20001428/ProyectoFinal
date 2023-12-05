@@ -3,3 +3,9 @@ export interface GetAdmin {
     mensaje: string;
     usuario: {};
 }
+
+export interface GetClient {
+    exito: boolean;
+    mensaje: string;
+    usuario: {};
+}

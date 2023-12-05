@@ -3,6 +3,8 @@ import { CarritoItem, Producto } from '../interfaces/producto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import Swal from 'sweetalert2';
+import { HttpClient } from '@angular/common/http';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-producto',
@@ -11,91 +13,110 @@ import Swal from 'sweetalert2';
 })
 export class ProductoComponent implements OnInit {
 
-  constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router, private http: HttpClient, private spinner: NgxSpinnerService) { }
 
   id_producto: number = 0;
   cantidad = 1;
   productos: CarritoItem[] = [];
 
-  titulo = 'Un hombre iluminado';
-  autor = 'Brandon Sanderson';
-  categoria = 'Ciencia ficción';
-  descripcion = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur aliquam quam earum aliquid, quasi odio laudantium vitae, et consectetur minus eveniet exercitationem temporibus iure impedit dolore. Earum, impedit ipsam. Pariatur. Esse, ab? Voluptates facere in dolorum veritatis suscipit odio quibusdam laborum, accusantium quas autem iusto, recusandae dolorem. Rerum neque exercitationem fuga quaerat voluptatibus aut voluptatem quia fugit nisi reprehenderit!Enim!. Qui illum libero repellat repellendus quos facilis? Temporibus, dolore. Dolor quasi ratione illo alias fuga facere eius impedit magnam culpa ipsum. At nostrum beatae repellat aut voluptates laboriosam accusantium quidem!Est veritatis laudantium dignissimos voluptates quaerat nulla! Amet sit tempore neque, ad, aliquam quibusdam temporibus deserunt expedita quas voluptatum ullam perspiciatis eos! Enim, aliquam atque a quas aut consectetur eos.Vitae molestiae aspernatur harum quis.';
-  precio = 579;
-  imagen = 'https://www.gandhi.com.mx/media/catalog/product/9/7/9786073836722_2a84.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=300&width=240&canvas=240:300';
-  existencias = 100;
+  titulo = '';
+  autor = '';
+  editorial = '';
+  categoria = '';
+  descripcion = '';
+  precio = 0;
+  imagen = '';
+  imagenSrc = '';
+  existencias = 0;
   dataSource: any = [];
 
-  // productos: Producto[] = [
-  //   {
-  //     "id": 1,
-  //     "nombre": "Un hombre iluminado",
-  //     "descripcion": "Novela escrita por B.Sanderson",
-  //     "autor": "Brandon Sanderson",
-  //     "id_categoria": 1,
-  //     "precio": 579,
-  //     "imagen": "https://www.gandhi.com.mx/media/catalog/product/9/7/9786073836722_2a84.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=300&width=240&canvas=240:300",
-  //     "existencias": 10
-  //   },
-  //   {
-  //     "id": 2,
-  //     "nombre": "Nuestras resistencias",
-  //     "descripcion": "Obra compuesta. Novela de varios autores",
-  //     "autor": "Varios autores",
-  //     "id_categoria": 2,
-  //     "precio": 225,
-  //     "imagen": "https://www.gandhi.com.mx/media/catalog/product/t/m/tmp9786078941209_14d5.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=300&width=240&canvas=240:300",
-  //     "existencias": 15
-  //   },
-  //   {
-  //     "id": 3,
-  //     "nombre": "El club de la lectura del refugio antiaéreo",
-  //     "descripcion": "Novela escrita por A.Lyons",
-  //     "autor": "Annie Lyons",
-  //     "id_categoria": 3,
-  //     "precio": 388,
-  //     "imagen": "https://www.gandhi.com.mx/media/catalog/product/9/7/9786073906760_1607.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=300&width=240&canvas=240:300",
-  //     "existencias": 8
-  //   },
-  //   {
-  //     "id": 4,
-  //     "nombre": "Un hombre iluminado",
-  //     "descripcion": "Novela escrita por B.Sanderson",
-  //     "autor": "Brandon Sanderson",
-  //     "id_categoria": 1,
-  //     "precio": 579,
-  //     "imagen": "https://www.gandhi.com.mx/media/catalog/product/9/7/9786073836722_2a84.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=300&width=240&canvas=240:300",
-  //     "existencias": 35
-  //   },
-  //   {
-  //     "id": 5,
-  //     "nombre": "Nuestras resistencias",
-  //     "descripcion": "Obra compuesta. Novela de varios autores",
-  //     "autor": "Varios autores",
-  //     "id_categoria": 2,
-  //     "precio": 225,
-  //     "imagen": "https://www.gandhi.com.mx/media/catalog/product/t/m/tmp9786078941209_14d5.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=300&width=240&canvas=240:300",
-  //     "existencias": 25
-  //   },
-  //   {
-  //     "id": 6,
-  //     "nombre": "El club de la lectura del refugio antiaéreo",
-  //     "descripcion": "Novela escrita por A.Lyons",
-  //     "autor": "Annie Lyons",
-  //     "id_categoria": 3,
-  //     "precio": 388,
-  //     "imagen": "https://www.gandhi.com.mx/media/catalog/product/9/7/9786073906760_1607.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=300&width=240&canvas=240:300",
-  //     "existencias": 10
-  //   }
-  // ]
-
   ngOnInit(): void {
-    const idString = this.route.snapshot.paramMap.get('id');
-    if (idString) {
-      this.id_producto = parseInt(idString, 10);
-    }
-    //this.dataSource = this.productos;
+    this.route.params.subscribe(params => {
+      const idString = params['id'];
+      if (idString) {
+        this.id_producto = parseInt(idString, 10);
+        this.getProducto();
+        this.obtenerLibros();
+        this.dataSource = this.productos;
+      }
+    });
   }
+
+  getProducto() {
+
+    const url = `http://localhost:5000/libros/${this.id_producto}`;
+
+    this.http.get<any>(url)
+      .subscribe(
+        (data) => {
+          this.titulo = data.libro.nombre;
+          this.descripcion = data.libro.descripcion;
+          this.precio = data.libro.precio;
+          this.autor = data.libro.autor;
+          this.editorial = data.libro.editorial;
+          this.existencias = data.libro.existencias;
+          this.categoria = data.libro.id_categoria;
+          this.imagen = data.libro.imagen;
+          this.obtenerImagen(this.imagen);
+        },
+        (error) => {
+          console.error('Error en la petición:', error);
+        }
+      );
+  }
+
+  obtenerImagen(imagen: string) {
+    const url = `http://localhost:5000/covers/${imagen}`;
+
+    this.http.get(url, { observe: 'response', responseType: 'blob' as 'json' }).subscribe(
+      response => {
+        if (response.status === 200) {
+          this.imagenSrc = url;
+        } else {
+          console.error('Error al obtener la imagen. Status:', response.status);
+        }
+      },
+      error => {
+        console.error('Error al obtener la imagen', error);
+      }
+    );
+  }
+
+  //OBTENER LIBROS RELACIONADOS
+  //#region
+  obtenerLibros() {
+    const url = 'http://localhost:5000/libros';
+
+    this.http.get<any[]>(url)
+      .subscribe(
+        (data) => {
+          this.productos = data;
+          this.dataSource = data;
+          this.productos.forEach(producto => this.obtenerImagenes(producto));
+        },
+        (error) => {
+          console.error('Error al obtener libros:', error);
+        }
+      );
+  }
+
+  obtenerImagenes(producto: { imagen: string }) {
+    const url = `http://localhost:5000/covers/${producto.imagen}`;
+
+    this.http.get(url, { observe: 'response', responseType: 'blob' as 'json' }).subscribe(
+      response => {
+        if (response.status === 200) {
+          producto.imagen = url;
+        } else {
+          console.error('Error al obtener la imagen. Status:', response.status);
+        }
+      },
+      error => {
+        console.error('Error al obtener la imagen', error);
+      }
+    );
+  }
+  //#endregion
 
   validateUser(): boolean {
     let userType = this.authService.getUserType();
@@ -108,7 +129,7 @@ export class ProductoComponent implements OnInit {
   }
 
   validateForm(): boolean {
-    if (this.cantidad == 0 || !this.cantidad || this.cantidad > this.existencias) {
+    if (this.cantidad == 0 || !this.cantidad || this.cantidad > this.existencias || this.cantidad % 1 != 0) {
       Swal.fire('Error', 'Ingrese una cantidad correcta', 'error');
       return false;
     }
@@ -129,12 +150,12 @@ export class ProductoComponent implements OnInit {
 
         let producto = {
           "id": this.id_producto,
-          "nombre": 'Un hombre iluminado',
-          "imagen": 'https://www.gandhi.com.mx/media/catalog/product/9/7/9786073836722_2a84.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=300&width=240&canvas=240:300',
-          "autor": 'Brandon Sanderson',
+          "nombre": this.titulo,
+          "imagen": this.imagenSrc,
+          "autor": this.autor,
           "cantidad": this.cantidad,
-          "precio": 579,
-          "total": 1000
+          "precio": this.precio,
+          "total": (this.precio * this.cantidad)
         }
 
         this.productos.push(producto);
@@ -146,7 +167,8 @@ export class ProductoComponent implements OnInit {
 
         if (productoExistente) {
           if (productoExistente.cantidad + 1 <= this.existencias) {
-            productoExistente.cantidad = (productoExistente.cantidad || 1) + 1;
+            productoExistente.cantidad = (productoExistente.cantidad || 1) + this.cantidad;
+            productoExistente.total += this.precio * this.cantidad;
             this.guardar();
           } else {
             Swal.fire('Error', 'La cantidad agregada sobrepasa el stock actual', 'error');

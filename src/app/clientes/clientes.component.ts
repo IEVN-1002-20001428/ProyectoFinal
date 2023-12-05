@@ -17,13 +17,13 @@ export class ClientesComponent implements OnInit {
   obtenerClientes() {
     const url = 'http://localhost:5000/clientes';
 
-    this.http.get<any[]>(url)
+    this.http.get<Cliente[]>(url)
       .subscribe(
         (data) => {
-          this.dataSource.push(data);
+          this.dataSource = data;
         },
         (error) => {
-          console.error('Error al obtener libros:', error);
+          console.error('Error al obtener a los clientes:', error);
         }
       );
   }

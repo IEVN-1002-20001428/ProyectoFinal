@@ -14,6 +14,8 @@ import { NuevoclienteComponent } from './nuevocliente/nuevocliente.component';
 import { NuevoadminComponent } from './nuevoadmin/nuevoadmin.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { EditarusuarioComponent } from './editarusuario/editarusuario.component';
+import { EditarproductoComponent } from './editarproducto/editarproducto.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -25,6 +27,8 @@ const routes: Routes = [
   { path: 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard], data: { allowedRoles: ['admin'] } },
   { path: 'entregas', component: EntregasComponent, canActivate: [AuthGuard], data: { allowedRoles: ['admin'] } },
   { path: 'nuevo-usuario', component: NuevoadminComponent, canActivate: [AuthGuard], data: { allowedRoles: ['admin'] } },
+  { path: 'editar-usuario/:id', component: EditarusuarioComponent, canActivate: [AuthGuard], data: { allowedRoles: ['admin'] } },
+  { path: 'editar-producto/:id', component: EditarproductoComponent, canActivate: [AuthGuard], data: { allowedRoles: ['admin'] } },
   { path: 'login', component: LoginComponent },
   { path: 'detalle-producto/:id', component: ProductoComponent },
   { path: 'mis-compras', component: ComprasComponent, canActivate: [AuthGuard], data: { allowedRoles: ['cliente'] } },

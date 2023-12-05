@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { HttpClient } from '@angular/common/http';
+import { GetClient } from '../interfaces/usuario';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
   usuario = '';
   password = '';
@@ -33,8 +35,23 @@ export class LoginComponent {
 
   loginAsClient() {
     if (this.validateForm()) {
-      this.authService.login('cliente');
-      this.router.navigate(['/home']);
+
+      const url = `http://localhost:5000/clientes/${this.usuario}/${this.password}`;
+
+      this.http.get<GetClient>(url)
+        .subscribe(
+          (data) => {
+            if (data.exito) {
+              this.authService.login('cliente', this.usuario);
+              this.router.navigate(['/home']);
+            } else {
+              Swal.fire('Error', 'El usuario no pudo ser encontrado, verifique sus datos', 'error');
+            }
+          },
+          (error) => {
+            console.error('Error al obtener el servicio:', error);
+          }
+        );
     }
   }
 

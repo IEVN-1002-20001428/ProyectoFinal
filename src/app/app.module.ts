@@ -21,6 +21,12 @@ import { NuevoadminComponent } from './nuevoadmin/nuevoadmin.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { EditarusuarioComponent } from './editarusuario/editarusuario.component';
+import { EditarproductoComponent } from './editarproducto/editarproducto.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LibrosPipe } from './libros.pipe';
+
 
 @NgModule({
   declarations: [
@@ -40,14 +46,19 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
     NuevoclienteComponent,
     NuevoadminComponent,
     PerfilComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    EditarusuarioComponent,
+    EditarproductoComponent,
+    LibrosPipe
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
